@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import AdminToolFix from "../Layout/AdminToolFix"
-
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 
@@ -17,9 +15,9 @@ const AddProduct = ({ dish, postDish }) => {
     const [previewSource, setPreviewSource] = useState("");
     const [formData, setFormData] = useState({ name: "", price: "", description: "", dishPicture: "", categories: "" });
     const [formError, setFormError] = useState("");
-    const [successReport, setSuccessReport] = useState(dish.addDishsuccessMess);
-    const [errorReport, setErrorReport] = useState(dish.addDishError);
-    const [loading, setLoading] = useState(dish.addDishLoading);
+    const [successReport, setSuccessReport] = useState("");
+    const [errorReport, setErrorReport] = useState("");
+    const [loading, setLoading] = useState(false);
  
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -78,12 +76,10 @@ const AddProduct = ({ dish, postDish }) => {
                 return true;
             }
         }
-        
     }
 
     return (
         <div className="container">
-            {/* <AdminTools /> */}
             {successReport ? <div className="green white-text center-align successMessage">{successReport}</div>: <div></div>}
             {errorReport ? <div className="red white-text center-align errorMessage">{errorReport}</div>: <div></div>}
             {loading &&<div className="center-align"><div className="preloader-wrapper big active">
@@ -103,34 +99,18 @@ const AddProduct = ({ dish, postDish }) => {
             <div className="col s12 m3 l3"></div>
             <div className="col s12 m6 l6">
                 <form action="" onSubmit={(e) => { handleSubmitFile(e) }} method="POST">
-                    <h4 className="center-align" style={{ fontFamily: "'Tangerine', cursive" }}>Add New Dish</h4>
+                    <h4 className="center-align" style={{ fontFamily: "'Tangerine', cursive" }}>Add Your Photo</h4>
                     {formError ? <h5 className="red-text center-align">Please fill all the fields</h5> : <></>}
-                    <div className="row">
-                        <div className="input-field col s6">
-                            <i className="material-icons prefix">₦</i>
-                            <input id="icon_prefix" type="number" className="validate" onChange={(e, name = "price") => { handleInput(e, name) }} value={formData.price} />
-                            <label htmlFor="icon_prefix">Price</label>
-                            {!formData.price ? <span className="red-text">Please fill in this field</span> : <span></span>}
-                        </div>
-                        <div className="input-field col s6">
-                            <i className="material-icons prefix">restaurant</i>
-                            <input id="icon_telephone" type="text" className="validate" onChange={(e, name = "name") => { handleInput(e, name) }} value={formData.name} />
-                            <label htmlFor="icon_telephone">Dish Name</label>
-                            {!formData.name ? <span className="red-text">Please fill in this field</span> : <span></span>}
-                        </div>
-                    </div>
                     <div className="row">
                         <div className="input-field col s12">
                             <textarea id="textarea1" className="materialize-textarea" onChange={(e, name = "description") => { handleInput(e, name) }} value={formData.description}></textarea>
-                            <label htmlFor="textarea1">Enter dish description</label>
-                            {!formData.description ? <span className="red-text">Please fill in this field</span> : <span></span>}
+                            <label htmlFor="textarea1">Full Name</label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
                             <textarea id="categories" className="materialize-textarea" onChange={(e, name = "categories") => { handleInput(e, name) }} value={formData.categories}></textarea>
-                            <label htmlFor="categories">Enter categories. Eg: breakfast, dessert</label>
-                            {!formData.categories ? <span className="red-text">Please fill in this field</span> : <span></span>}
+                            <label htmlFor="categories">Your quote or comment</label>
                         </div>
                     </div>
 
@@ -155,7 +135,6 @@ const AddProduct = ({ dish, postDish }) => {
                         <img src={previewSource} className="responsive-img" alt="chosen" />
                     )
                 }
-                    <AdminToolFix/>
             </div>
             <div className="col s12 m3 l3"></div>
             </div>
