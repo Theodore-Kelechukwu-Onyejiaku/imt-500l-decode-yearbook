@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 
 const Home = () =>{
+    useEffect(()=>{
+
+    }, )
     return(
         <div>
-            This is the Home page
+            Welcome to IMT/IFT 500Level Year Book Page
         </div>
     )
 }

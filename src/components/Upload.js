@@ -116,7 +116,7 @@ const AddProduct = ({ dish, postDish }) => {
 
                     <div className="file-field input-field">
                         <div className="btn">
-                            <span>Dish Picture</span>
+                            <span>Your Picture</span>
                             <input type="file" name="image" onChange={handleFileInputChange} accept="image/*" />
 
                         </div>

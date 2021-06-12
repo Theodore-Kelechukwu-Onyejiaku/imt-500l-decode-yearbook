@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { TransitionGroup } from "react-transition-group";
 
+import ToolBars from "./Toolbars";
 import Home from "./Home";
 import Upload from "./Upload";
 
@@ -15,13 +16,14 @@ const Main = () => {
         <div>
             <TransitionGroup>
                 {/* <CSSTransition key={props.location.key} classNames="page" timeout={300}> */}
-                    <div >
+                    <div>
                         <Switch>
                             <Route path="/" component={() => <Home  />} exact />
                             <Route path="/upload" component={() =><Upload />} />
                             {/* <Route path="/" component={() => {Stories}} /> */}
                             <Redirect to="/"/>
                         </Switch>
+                        <ToolBars/>
                     </div>
                 {/* </CSSTransition> */}
             </TransitionGroup>
