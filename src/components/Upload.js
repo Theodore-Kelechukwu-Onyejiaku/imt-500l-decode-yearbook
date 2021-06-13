@@ -15,9 +15,7 @@ const AddProduct = ({ dish, postDish }) => {
     const [previewSource, setPreviewSource] = useState("");
     const [formData, setFormData] = useState({ name: "", price: "", description: "", dishPicture: "", categories: "" });
     const [formError, setFormError] = useState("");
-    const [successReport, setSuccessReport] = useState("");
-    const [errorReport, setErrorReport] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
  
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
@@ -26,8 +24,6 @@ const AddProduct = ({ dish, postDish }) => {
 
     const handleInput = (e, name) => {
         setFormError("");
-        setSuccessReport("");
-        setErrorReport("");
         let value = e.target.value;
         setFormData(Object.assign({}, formData, { [name]: value }));
     }
@@ -51,7 +47,7 @@ const AddProduct = ({ dish, postDish }) => {
         console.log(loading,dish.addDishLoading)
         setLoading(!loading)
         if(checkFormData(formData)){
-            setFormError("Please fill in the form correctly!");
+            M.toast({ html: "Please fill in the form correctly!", classes:"red white-text" })
         }else{
             setFormError("");
         }
@@ -80,9 +76,7 @@ const AddProduct = ({ dish, postDish }) => {
 
     return (
         <div className="container">
-            {successReport ? <div className="green white-text center-align successMessage">{successReport}</div>: <div></div>}
-            {errorReport ? <div className="red white-text center-align errorMessage">{errorReport}</div>: <div></div>}
-            {loading &&<div className="center-align"><div className="preloader-wrapper big active">
+            {/* {loading &&<div className="center-align"><div className="preloader-wrapper big active">
                     <div className="spinner-layer spinner-blue-only">
                         <div className="circle-clipper left">
                             <div className="circle"></div>
@@ -94,13 +88,12 @@ const AddProduct = ({ dish, postDish }) => {
                     </div>
                 </div>
                 </div>
-            }
+            } */}
             <div className="row">
             <div className="col s12 m3 l3"></div>
             <div className="col s12 m6 l6">
                 <form action="" onSubmit={(e) => { handleSubmitFile(e) }} method="POST">
-                    <h4 className="center-align" style={{ fontFamily: "'Tangerine', cursive" }}>Add Your Photo</h4>
-                    {formError ? <h5 className="red-text center-align">Please fill all the fields</h5> : <></>}
+                    <h4 className="center-align">Add Your Photo</h4>
                     <div className="row">
                         <div className="input-field col s12">
                             <textarea id="textarea1" className="materialize-textarea" onChange={(e, name = "description") => { handleInput(e, name) }} value={formData.description}></textarea>
@@ -126,7 +119,11 @@ const AddProduct = ({ dish, postDish }) => {
                         </div>
                     </div>
                     <div className="center-align">
-                        <button type="submit" className="btn">Submit</button>
+                        {loading ? 
+                                <button disabled style={{cursor:"none"}}>submit<i className="fa fa-spin fa-spinner"></i></button>
+                            :
+                                <button type="submit" className="btn"></button>
+                        }
                     </div>
                 </form>
                 <br />
