@@ -2,19 +2,18 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const userSchema = new Schema({
-    isActivated: {type:Boolean, default: false},
-    isAdmin: {type: Boolean, default :false},
-    password:{type:String},
-    username: {type: String},
-    given_name : {type: String},
-    family_name : {type: String},
-    provider: {type: String},
-    email: {type: String},
-    picture: {type: String},
-    googleId: {type: String, select: false},
-    verificationSign: {type:String},
-    orders: [{type: Schema.Types.ObjectId, ref: "Order"}]
+const AnonymousMessages = new Schema({
+    message: {type: String}
+}
+, {timestamps: true})
+
+
+const User =  new Schema({
+    fullname: {type: String},
+    quote: {type: String},
+    message: [AnonymousMessages],
+    imageUrl: {type: String},
+    imageId: {type:String}
 })
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", User);

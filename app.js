@@ -7,12 +7,7 @@ var cors = require('cors');
 require('dotenv').config()
 
 
-var indexRouter = require('./routes/index');
-var userRouter = require('./routes/user');
-var adminRouter = require("./routes/admin");
-var orderRouter = require("./routes/order");
-var dishRouter = require("./routes/dish");
-var authRouter = require("./routes/auth");
+var userRouter = require("./routes/user");
 
 var app = express();
 
@@ -27,12 +22,7 @@ app.use(express.urlencoded({limit:"50mb", extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', indexRouter);
-app.use("/api/auth", authRouter);
-app.use('/api/user', userRouter);
-app.use("/api/admin", adminRouter);
-app.use("/api/order", orderRouter);
-app.use("/api/dish", dishRouter);
+app.use('/api', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

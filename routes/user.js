@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {verifyUser} = require("../auth/jwtVerification")
+const userController = require("../controllers/userController");
+
 
 /* GET users listing. */
-router.get('/', verifyUser, function(req, res, next) {
-  res.status(200).json({message:'This is the user id:'+req.userId});
-});
+router.get('/users', userController.allUsers);
+router.post("/users/", userController.addPhoto);
 
 
 module.exports = router;
