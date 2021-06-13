@@ -1,22 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import M from 'materialize-css/dist/js/materialize.min.js'
 import {baseUrl} from "../shared/baseUrl"
 
 import ToolBars from "./Toolbars";
 import Home from "./Home";
 import Upload from "./Upload";
 import Throwback from "./Throwback";
+import Anonymous from "./Anonymous";
+
+
 
 
 const Main = () => {
-    
-    const upload = (formData) =>{
-        fetch(baseUrl, "users",{
+    const [users, setUsers] = useState([]);
+    const [uploadLoading, setUploadLoading] = useState(false);
+     
+    const getUsers = () =>{
+    }
+
+    const uploadYearPhoto = (formData) =>{
+        setUploadLoading(!uploadLoading)
+        fetch(baseUrl+"users",{
             method: "POST",
-            
+            body: JSON.stringify(formData),
+            headers: {
+                'Accept': 'application/json',
+                "Content-type": "application/json",
+            }
+        })
+        .then(response =>{
+            if(response.ok){
+                return response.json()
+            }else{
+                throw new Error("Something went wrong")
+            }
+        })
+        .then(result =>{
+            if(result.status === "ok"){
+                setUsers(result.user, ...users)
+                M.toast({ html: result.message, classes:"green white-text" })
+                setUploadLoading(uploadLoading)
+
+            }else{
+                M.toast({ html: result.message, classes:"red white-text" })
+                setUploadLoading(uploadLoading)
+                return
+            }
+        })
+        .catch(error =>{
+            M.toast({ html: "Something went wrong! Please check internet connection", classes:"red white-text" });
+            setUploadLoading(uploadLoading)
+                return
         })
     }
+
     useEffect(() => {
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,9 +66,10 @@ const Main = () => {
                 <CSSTransition classNames="page" timeout={300}>
                     <div>
                         <Switch>
-                            <Route path="/" component={() => <Home  />} exact />
-                            <Route path="/upload" component={() =><Upload />} exact/>
+                            <Route path="/" component={() => <Home  users={users}/>} exact />
+                            <Route path="/upload" component={() =><Upload loading={uploadLoading}  uploadYearPhoto={uploadYearPhoto}/>} exact/>
                             <Route path="/throwback" component={() => <Throwback/> } exact/>
+                            <Route path="/user/:id" component={()=> <Anonymous /> } exact/>
                             <Redirect to="/"/>
                         </Switch>
                         <ToolBars/>
