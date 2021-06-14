@@ -30,11 +30,12 @@ const Main = () => {
             }
         })
         .then(response =>{
-            if(response.ok){
-                return response.json()
-            }else{
-                throw new Error("Something went wrong")
-            }
+            // if(response.ok){
+            //     return response.json()
+            // }else{
+            //     throw new Error("Something went wrong")
+            // }
+            return response.json();
         })
         .then(result =>{
             if(result.status === "ok"){
