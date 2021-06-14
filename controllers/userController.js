@@ -32,7 +32,6 @@ exports.addPhoto =  async (req, res, next)=>{
             quote: req.body.quote,
         })
 
-        
         const picture = req.body.picture;
         const uploadResponse = await cloudinary.uploader.upload(picture, {upload_preset: "imt-final-year-photo-book"});
     
@@ -40,9 +39,9 @@ exports.addPhoto =  async (req, res, next)=>{
         user.imageId = uploadResponse.public_id;
         
         const newUser = await user.save();
-        res.status(200).json({"status":"ok", "message": "Upload Successful", user: User})
+        res.status(200).json({"status":"ok", "message": "Upload Successful", user: User});
     } catch (error) {
-        res.status(400).json({"message": error.message})
+        res.status(400).json({"message": error.message});
     }
     
 }
