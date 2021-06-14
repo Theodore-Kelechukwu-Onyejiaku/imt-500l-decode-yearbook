@@ -11,7 +11,7 @@ import Throwback from "./Throwback";
 import KindMessage from "./KindMessage";
 import Messages from "./Messages";
 import Navigation from "./Navigation";
-
+import ToolbarFix from "./ToolbarFix";
 
 
 
@@ -67,6 +67,7 @@ const Main = () => {
                             <Route path="/user/:id/messages" component={()=> <Messages /> } exact/>
                             <Redirect to="/"/>
                         </Switch>
+                        <ToolbarFix/>
                         <ToolBars/>
                     </div>
             </TransitionGroup>
