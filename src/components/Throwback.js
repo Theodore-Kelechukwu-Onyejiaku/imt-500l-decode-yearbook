@@ -2,7 +2,10 @@ import React from "react";
 
 const Throwback = ()=>{
     return(
-        <div>coming soon...</div>
+        <div className="container">
+                <h4>Throwback coming soon</h4>
+                <div>coming soon...</div>
+        </div>
     )
 }
 

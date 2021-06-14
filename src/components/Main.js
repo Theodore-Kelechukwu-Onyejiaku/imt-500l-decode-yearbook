@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { Switch, Route, Redirect} from "react-router-dom";
 import { TransitionGroup} from "react-transition-group";
 import M from 'materialize-css/dist/js/materialize.min.js'
 import {baseUrl} from "../shared/baseUrl"
@@ -18,9 +18,6 @@ import Navigation from "./Navigation";
 const Main = () => {
     const [users, setUsers] = useState([]);
     const [uploadLoading, setUploadLoading] = useState(false);
-     
-    const getUsers = () =>{
-    }
 
     const uploadYearPhoto = (formData) =>{
         setUploadLoading(!uploadLoading)
@@ -69,8 +66,8 @@ const Main = () => {
                         <Navigation/>
                         <Switch>
                             <Route path="/" component={() => <Home  users={users}/>} exact />
-                            <Route path="/upload" component={() =><Upload loading={uploadLoading}  uploadYearPhoto={uploadYearPhoto}/>} exact/>
-                            <Route path="/throwback" component={() => <Throwback/> } exact/>
+                            <Route path="/upload" component={() =><Upload loading={uploadLoading}  uploadYearPhoto={uploadYearPhoto}/>}/>
+                            <Route path="/throwback" component={() => <Throwback/> } />
                             <Route path="/user/:id" component={()=> <KindMessage /> } exact/>
                             <Route path="/user/:id/messages" component={()=> <Messages /> } exact/>
                             <Redirect to="/"/>

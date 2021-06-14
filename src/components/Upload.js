@@ -3,12 +3,8 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 
 
 const Upload = ({ uploadYearPhoto, loading}) => {
-    const [fileInputState, setFileInputState] = useState("");
-    const [selectedFile, setSelectedFile] = useState("");
     const [previewSource, setPreviewSource] = useState("");
-    const [formData, setFormData] = useState({ fullname: "", quote: "", picture: ""});
     const [isLoading, setIsLoading] = useState(loading);
-    const [disabledBtn, setDisabledBtn] = useState(false)
     const [formError, setFormError] = useState("");
     const [fullname, setFullName] = useState("");
     const [quote, setQuote] = useState("");
@@ -28,22 +24,29 @@ const Upload = ({ uploadYearPhoto, loading}) => {
         previewFile(file);
     }
 
-    const checkInputs = ()=>{
-        console.log(quote.length)
-         if(quote.length > 120){
-            setDisabledBtn(true)
-         }
-         else{
-            setDisabledBtn(disabledBtn)
-         }
-    }
+    
     const handleFullNameInput = (e) => {
+        let fullnameInput = document.getElementById("fullname");
+
+        if(fullname.length > 40){
+            fullnameInput.style = "border-bottom: 1px solid #F44336"
+        }else{
+            fullnameInput.style = "border-bottom: 1px solid #26a69a"
+        }
+        setFormError("");
         setFullName(e.target.value)
     }
 
     const handleQuoteInput = (e) => {
+        let quoteInput = document.getElementById("quote");
+
+        if(quote.length > 120){
+            quoteInput.style = "border-bottom: 1px solid #F44336"
+        }else{
+            quoteInput.style = "border-bottom: 1px solid #26a69a"
+        }
+        setFormError("");
         setQuote(e.target.value)
-        checkInputs();
     }
 
     const previewFile = (file) => {
@@ -51,21 +54,35 @@ const Upload = ({ uploadYearPhoto, loading}) => {
         reader.readAsDataURL(file);
         reader.onloadend = () => {
             setPreviewSource(reader.result)
-            setFileInputState(reader.result)
-            setSelectedFile(reader.result)
-            // setFormData(Object.assign({}, formData, { picture: reader.result }));
             setPicture(reader.result)
         }
     }
 
     const handleSubmitFile = async (e) => {
         e.preventDefault();
+        if(!(quote.length && fullname.length && picture)){
+            setFormError("Please enter all fields");
+            M.toast({ html: "Please enter all fields", classes:"red white-text" })
+            return
+        }
+        if(quote.length > 120 && fullname.length > 40){
+            setFormError("Quote should be less than 120 characters and fullname 40");
+            M.toast({ html: "Quote should be less than 120 characters and fullname 40", classes:"red white-text" })
+            return 
+        }
+        else if(fullname.length > 40 ){
+            console.log("greater than")
+            setFormError("Fullna,e shouldn't be more than 40 characters")
+            M.toast({ html: "Quote shouldn't be more than 40 characters", classes:"red white-text" })
+            return 
+        }
+        else if(quote.length > 120){
+            setFormError("Quote should be less than 120")
+            M.toast({ html: "Quote shouldn't be more than 120 characters", classes:"red white-text" })
+            return
+        }
         setIsLoading(!isLoading)
         uploadYearPhoto({"fullname":fullname, "quote": quote, "picture": picture});
-    }
-
-    const checkFormData = (formData) => {
-
     }
 
     return (
@@ -75,9 +92,11 @@ const Upload = ({ uploadYearPhoto, loading}) => {
             <div className="col s12 m6 l6">
                 <form action="" onSubmit={(e) => { handleSubmitFile(e) }} method="POST">
                     <h4 className="center-align">Add Your Photo</h4>
+                    <p className="center-align red-text">{formError}</p>
                     <div className="row">
                         <div className="input-field col s12">
-                            <input id="fullname" type="text" onChange={(e) => { handleFullNameInput(e) }} value={fullname}/>
+                            <input id="fullname" type="text" onChange={(e) => { handleFullNameInput(e) }} value={fullname} data-length="40"/>
+                            <span className="" style={{float:"right"}}>{fullname.length}/40</span>
                             <label htmlFor="fullname">Full Name</label>
                         </div>
                         
@@ -85,6 +104,7 @@ const Upload = ({ uploadYearPhoto, loading}) => {
                     <div className="row">
                         <div className="input-field col s12">
                             <textarea id="quote"  className="materialize-textarea" onChange={(e )=> { handleQuoteInput(e) }} value={quote} data-length="120"></textarea>
+                            <span className="" style={{float:"right"}}>{quote.length}/120</span>
                             <label htmlFor="quote">Your quote or comment</label>
                         </div>
                     </div>
@@ -97,20 +117,13 @@ const Upload = ({ uploadYearPhoto, loading}) => {
                         </div>
                         <div className="file-path-wrapper">
                             <input className="file-path validate" type="text" />
-                            {!formData.dishPicture ? <span className="red-text">Please Select a picture</span> : <span></span>}
                         </div>
                     </div>
                     <div className="center-align">
                         {isLoading ? 
-                                <button disabled style={{cursor:"none"}}>submit<i className="fa fa-spin fa-spinner"></i></button>
+                                <button className="btn" disabled style={{cursor:"none"}}>submit<i className="fa fa-spin fa-spinner"></i></button>
                             :   
-                                <>
-                                {disabledBtn ? 
-                                    <button disabled type="submit" id="uploadBtn" className="btn">Submit</button>
-                                    :
-                                    <button type="submit" id="uploadBtn" className="btn" >Submit</button>
-                                }
-                                </>
+                                <button type="submit" id="uploadBtn" className="btn" >Submit</button>
                         }
                     </div>
                 </form>

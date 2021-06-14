@@ -46,6 +46,7 @@ const Home = () => {
                 setIsLoading(!isLoading);
                 return
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>
@@ -58,16 +59,16 @@ const Home = () => {
                     {!users.length ? <div>Users not found!</div>
                         :
                         <div className="container">
-                            <h4>Welcome to IMT/IFT 500Level Year Book Page</h4>
+                            <h4 className="center-align">IMT/IFT 500Level YearBook</h4>
                             <Stagger in>
                                 <div className="row">
                                     {users.map(eachUser =>
                                         <Fade in="true">
-                                            <div className="col s12 m4 l4" >
+                                            <div className="col s12 m6 l4" >
 
                                                 <div class="card">
                                                     <div class="card-image waves-effect waves-block waves-light">
-                                                        <img class="activator" src={eachUser.imageUrl} style={{ transform: "scale(.8,1.5)" }} />
+                                                        <img class="activator" alt="student passport" src={eachUser.imageUrl} style={{ transform: "scale(.8,1.5)" }} />
                                                     </div>
                                                     <div class="card-content">
                                                         <span class="card-title activator grey-text text-darken-4">{eachUser.fullname}<i class="material-icons right">more_vert</i></span>
@@ -76,7 +77,6 @@ const Home = () => {
                                                     </div>
                                                     <div class="card-reveal">
                                                         <span class="card-title grey-text text-darken-4">{eachUser.fullname}<i class="material-icons right">close</i></span>
-                                                        <h5></h5>
                                                         <p><span  class="btn waves-effect waves-light red lighten-2">Kind Messages: <span>{eachUser.messages.length}</span></span></p>
                                                         <NavLink to={"user/" + eachUser._id} className='btn' ><i className="material-icons">send</i></NavLink>{" "}
                                                         <NavLink to={"user/" + eachUser._id + "/messages"} className='btn' ><i className="material-icons">remove_red_eye</i></NavLink>

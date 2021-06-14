@@ -13,7 +13,9 @@ code {
 }
 
 .base-link{
-  background: #ee6e73;
+  /* background-color: #ee6e73; */
+  border:3px solid #ee6e73
+  /* background-color: black; */
 }
 
 /* Chat containers */

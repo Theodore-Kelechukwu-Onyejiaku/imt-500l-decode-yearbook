@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import M from 'materialize-css/dist/js/materialize.min.js'
 import { baseUrl } from "../shared/baseUrl"
+import TimeAgo from "javascript-time-ago";
+import en from 'javascript-time-ago/locale/en'
 
-
+TimeAgo.addDefaultLocale(en);
+const timeAgo = new TimeAgo("en-US");
 
 const KindMessage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState("");
     const [messages, setMessages] = useState([]);
     const id = window.location.pathname.split("/")[window.location.pathname.split("/").length - 2];
+
+
+    const Time = (time) => {
+        const inSeconds = new Date(time.time.createdAt).getTime();
+        const minutesAgo = timeAgo.format(inSeconds - 60 * 1000);
+        // return  timeAgo.format(time - 60 * 1000)
+        return (
+          <div>{minutesAgo}</div>
+        )
+      }
+      
+      
     useEffect(() => {
         fetch(baseUrl + "users/" + id )
             .then(response => {
@@ -25,6 +40,7 @@ const KindMessage = () => {
                 M.toast({ html: "Something went wrong!", classes:"red white-text" })
                 setIsLoading(!isLoading)
             })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>
@@ -41,7 +57,7 @@ const KindMessage = () => {
                         {messages.map(eachMessage => 
                             <div className="chatbox">
                                 <p>{eachMessage.message}</p>
-                                <span className="time-right">11:00</span>
+                                <Time time={eachMessage} />
                             </div>
                         )}
                 </div>
