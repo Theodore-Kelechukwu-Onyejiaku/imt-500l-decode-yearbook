@@ -3,7 +3,6 @@ import {Router} from "react-router-dom"
 import Main  from "./components/Main";
 import "./App.css"
 import M from 'materialize-css/dist/js/materialize.min.js'
-import history from "./redux/history"
 
 
 const store = ConfigureStore();
@@ -20,7 +19,7 @@ export default function App(){
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
     return (
-        <Router history={history}>
+        <Router>
           <div>
             <Main />
           </div>
