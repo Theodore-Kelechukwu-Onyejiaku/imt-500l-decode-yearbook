@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { TransitionGroup} from "react-transition-group";
 import M from 'materialize-css/dist/js/materialize.min.js'
 import {baseUrl} from "../shared/baseUrl"
 
@@ -65,7 +65,6 @@ const Main = () => {
     return (
         <div>
             <TransitionGroup>
-                <CSSTransition key={{}} classNames="page" timeout={300}>
                     <div>
                         <Navigation/>
                         <Switch>
@@ -78,7 +77,6 @@ const Main = () => {
                         </Switch>
                         <ToolBars/>
                     </div>
-                </CSSTransition>
             </TransitionGroup>
         </div>
     )
