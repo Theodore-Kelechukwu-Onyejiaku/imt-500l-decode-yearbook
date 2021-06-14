@@ -15,3 +15,18 @@ code {
 .base-link{
   background: #ee6e73;
 }
+
+/* Chat containers */
+.chatbox {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+}

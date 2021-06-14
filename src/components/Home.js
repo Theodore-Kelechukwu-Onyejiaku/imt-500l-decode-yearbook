@@ -64,12 +64,12 @@ const Home = () => {
                                     <Fade in="true">
                                         {users.map(eachUser =>
                                             <div className="col s12 m4 l4" >
-                                                <div className="card">
-                                                    <div className="card-image waves-block waves-light" width="300px" height="200px" style={{padding: "10px"}}>
-                                                        <img className="activator responsive-img" src={eachUser.imageUrl} style={{ maxWidth: "100%", height: "250px", width: "180px",margin:"auto" }} alt="dish" />
+                                                {/* <div className="card">
+                                                    <div className="card-image card-small waves-block waves-light">
+                                                        <img className="activator responsive-img" src={eachUser.imageUrl} alt="dish" />
                                                     </div>
                                                     <div className="card-body">
-                                                        <span className="card-title activator grey-text text-darken-4">{eachUser.quote}<i className="material-icons right">more_vert</i></span>
+                                                        <small className="card-title activator grey-text text-darken-4">{eachUser.quote}<i className="material-icons right">more_vert</i></small>
                                                         <p></p>
                                                         <p></p>
                                                         <button className='btn btn-small pulse' ><small>{eachUser.fullname}</small></button>
@@ -77,15 +77,39 @@ const Home = () => {
                                                     </div>
                                                     <div className="card-reveal">
                                                         <span className="card-title grey-text text-darken-4" >{eachUser.fullname}<i className="material-icons right">close</i></span>
-                                                        <p>This is the quote</p>
+                                                        <p>{eachUser.quote}</p>
                                                         <hr />
                                                         <br />
                                                         <br />
-                                                        <p>Anonymous Messages: <span>{eachUser.message.length}</span></p>
-                                                        <NavLink to={"user/"+eachUser._id} className='btn' >Send Anonymous Message</NavLink>
+                                                        <p>Anonymous Messages: <span>{eachUser.messages.length}</span></p>
+                                                        <NavLink to={"user/"+eachUser._id} className='btn' ><i className="material-icons">send</i></NavLink>{" "}
+                                                        <NavLink to={"user/"+eachUser._id+"/messages"} className='btn' ><i className="material-icons">remove_red_eye</i></NavLink>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
+                                            <div class="card">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src={eachUser.imageUrl} style={{transform: "scale(.8,1.5)"}}/>
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{eachUser.fullname}<i class="material-icons right">more_vert</i></span>
+      <p><i className="material-icons">format_quote</i>{eachUser.quote}</p>
+      
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+      <h5>{eachUser.name}</h5>
+      <p><i className="material-icons">format_quote</i>{eachUser.quote}</p>
+      <p>Anonymous Messages: <span>{eachUser.messages.length}</span></p>
+        <NavLink to={"user/"+eachUser._id} className='btn' ><i className="material-icons">send</i></NavLink>{" "}
+        <NavLink to={"user/"+eachUser._id+"/messages"} className='btn' ><i className="material-icons">remove_red_eye</i></NavLink>
+    <hr/>
+    <br/>
+    Share anonymous message Link: <a href={"https://api.whatsapp.com/send?text="+window.location+"user/"+eachUser._id} className="btn"><i className="fa fa-whatsapp"></i></a>
+    </div>
+  </div>
+  </div>
+           
                                         )}
                                     </Fade>
                                 </div>

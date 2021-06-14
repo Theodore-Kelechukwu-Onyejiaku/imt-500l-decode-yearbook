@@ -8,7 +8,9 @@ import ToolBars from "./Toolbars";
 import Home from "./Home";
 import Upload from "./Upload";
 import Throwback from "./Throwback";
-import Anonymous from "./Anonymous";
+import KindMessage from "./KindMessage";
+import Messages from "./Messages";
+import Navigation from "./Navigation";
 
 
 
@@ -63,13 +65,15 @@ const Main = () => {
     return (
         <div>
             <TransitionGroup>
-                <CSSTransition classNames="page" timeout={300}>
+                <CSSTransition key={{}} classNames="page" timeout={300}>
                     <div>
+                        <Navigation/>
                         <Switch>
                             <Route path="/" component={() => <Home  users={users}/>} exact />
                             <Route path="/upload" component={() =><Upload loading={uploadLoading}  uploadYearPhoto={uploadYearPhoto}/>} exact/>
                             <Route path="/throwback" component={() => <Throwback/> } exact/>
-                            <Route path="/user/:id" component={()=> <Anonymous /> } exact/>
+                            <Route path="/user/:id" component={()=> <KindMessage /> } exact/>
+                            <Route path="/user/:id/messages" component={()=> <Messages /> } exact/>
                             <Redirect to="/"/>
                         </Switch>
                         <ToolBars/>
