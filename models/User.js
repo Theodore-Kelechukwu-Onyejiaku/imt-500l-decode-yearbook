@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 
-const AnonymousMessages = new Schema({
+const kindMessages = new Schema({
     message: {type: String}
 }
 , {timestamps: true})
@@ -11,7 +11,7 @@ const AnonymousMessages = new Schema({
 const User =  new Schema({
     fullname: {type: String},
     quote: {type: String},
-    message: [AnonymousMessages],
+    messages: [kindMessages],
     imageUrl: {type: String},
     imageId: {type:String}
 })
