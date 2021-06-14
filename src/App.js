@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
-import { Provider } from "react-redux";
 import {Router} from "react-router-dom"
-import { ConfigureStore } from "./redux/configureStore"
 import Main  from "./components/Main";
 import "./App.css"
 import M from 'materialize-css/dist/js/materialize.min.js'
@@ -22,13 +20,11 @@ export default function App(){
 // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
     return (
-      <Provider store={store}>
         <Router history={history}>
           <div>
             <Main />
           </div>
         </Router>
-      </Provider>
       
     )
 }
