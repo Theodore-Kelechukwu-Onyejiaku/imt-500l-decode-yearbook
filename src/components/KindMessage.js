@@ -20,6 +20,10 @@ const KindMessage = () => {
 
     const handleFormSubmit = (e) =>{
         e.preventDefault()
+        if(!message.length){
+           M.toast({ html: "Please enter message", classes:"red white-text" })
+           return
+        }
         console.log("whatever")
         setIsUpLoading(!isUploading)
         fetch(baseUrl+"users/"+id+"/message", {
