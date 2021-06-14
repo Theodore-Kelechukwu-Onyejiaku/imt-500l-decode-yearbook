@@ -20,7 +20,7 @@ const KindMessage = () => {
 
     const handleFormSubmit = (e) =>{
         e.preventDefault()
-        if(!message.length){
+        if(message.length < 1){
            M.toast({ html: "Please enter message", classes:"red white-text" })
            return
         }
