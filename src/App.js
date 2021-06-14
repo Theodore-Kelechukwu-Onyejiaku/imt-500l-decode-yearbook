@@ -5,7 +5,6 @@ import "./App.css"
 import M from 'materialize-css/dist/js/materialize.min.js'
 
 
-const store = ConfigureStore();
 export default function App(){
   useEffect(()=>{
     window.addEventListener('load', function() {
