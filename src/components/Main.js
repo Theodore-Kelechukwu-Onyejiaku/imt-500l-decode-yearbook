@@ -30,12 +30,12 @@ const Main = () => {
             }
         })
         .then(response =>{
-            // if(response.ok){
-            //     return response.json()
-            // }else{
-            //     throw new Error("Something went wrong")
-            // }
-            return response.json();
+            if(response.ok){
+                return response.json()
+            }else{
+                throw new Error("Something went wrong")
+            }
+            // return response.json();
         })
         .then(result =>{
             if(result.status === "ok"){
@@ -50,9 +50,8 @@ const Main = () => {
             }
         })
         .catch(error =>{
-            M.toast({ html: "Something went wrong! Please check internet connection", classes:"red white-text" });
+            M.toast({ html: error.message, classes:"red white-text" });
             setUploadLoading(uploadLoading)
-                return
         })
     }
 
