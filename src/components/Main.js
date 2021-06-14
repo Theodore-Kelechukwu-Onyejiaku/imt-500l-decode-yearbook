@@ -22,12 +22,12 @@ const Main = () => {
     const uploadYearPhoto = (formData) =>{
         setUploadLoading(!uploadLoading)
         fetch(baseUrl+"users",{
-            method: "POST",
-            body: JSON.stringify(formData),
+            method: "post",
             headers: {
                 'Accept': 'application/json',
                 "Content-type": "application/json",
-            }
+            },
+            body: JSON.stringify(formData),
         })
         .then(response =>{
             if(response.ok){
@@ -37,19 +37,14 @@ const Main = () => {
             }
             // return response.json();
         })
-        .then(result =>{
-            if(result.status === "ok"){
+        .then(result =>{            
                 setUsers(result.user, ...users)
                 M.toast({ html: result.message, classes:"green white-text" })
                 setUploadLoading(uploadLoading)
 
-            }else{
-                M.toast({ html: result.message, classes:"red white-text" })
-                setUploadLoading(uploadLoading)
-                return
-            }
         })
         .catch(error =>{
+            console.log("error again")
             M.toast({ html: error.message, classes:"red white-text" });
             setUploadLoading(uploadLoading)
         })
