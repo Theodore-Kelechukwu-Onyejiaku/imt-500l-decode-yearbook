@@ -1,7 +1,8 @@
 ## Url
+https://decode-yearphoto-book.netlify.app/
 
 ## Title
-Restaurant App
+My class final year online book
 
 ## Description
-A restaurant app built with ReactJS, Redux, Redux Thunk and Simple React Animations.
+An app built with ReactJS, ExpressJS, Cloudinary API, etc.
